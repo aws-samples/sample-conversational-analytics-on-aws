@@ -1,0 +1,2132 @@
+{
+  "ComplianceNote": "All data shown by this analysis is synthetic. Real EU personal data or payment card data would fall under GDPR and PCI DSS, which are the deployer's responsibility.",
+  "Name": "Cards Domain Health Monitor",
+  "AnalysisId": "conversational-analytics-cards-health-monitor",
+  "Definition": {
+    "DataSetIdentifierDeclarations": [
+      {
+        "Identifier": "spending-analysis",
+        "DataSetArn": "arn:aws:quicksight:eu-west-1:123456789012:dataset/conversational-analytics-spending-analysis"
+      },
+      {
+        "Identifier": "tokenization-analysis",
+        "DataSetArn": "arn:aws:quicksight:eu-west-1:123456789012:dataset/conversational-analytics-tokenization-analysis"
+      },
+      {
+        "Identifier": "chargeback-analysis",
+        "DataSetArn": "arn:aws:quicksight:eu-west-1:123456789012:dataset/conversational-analytics-chargeback-analysis"
+      },
+      {
+        "Identifier": "customer-cards",
+        "DataSetArn": "arn:aws:quicksight:eu-west-1:123456789012:dataset/conversational-analytics-customer-cards"
+      },
+      {
+        "Identifier": "card-delivery",
+        "DataSetArn": "arn:aws:quicksight:eu-west-1:123456789012:dataset/conversational-analytics-card-delivery"
+      }
+    ],
+    "Sheets": [
+      {
+        "SheetId": "executive-overview",
+        "Description": "High-level KPIs and trends across the Cards domain",
+        "Name": "Executive Overview",
+        "Visuals": [
+          {
+            "KPIVisual": {
+              "VisualId": "a90bea72-55cb-4945-b6be-84c2f8b8b45c",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Total Spend</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "Values": [
+                    {
+                      "NumericalMeasureField": {
+                        "FieldId": "782c56eb-7e19-4ce0-9ebf-444ce62b5df9.0.1770283943808",
+                        "Column": {
+                          "DataSetIdentifier": "spending-analysis",
+                          "ColumnName": "amount_eur"
+                        },
+                        "AggregationFunction": {
+                          "SimpleNumericalAggregation": "SUM"
+                        }
+                      }
+                    }
+                  ],
+                  "TargetValues": [],
+                  "TrendGroups": []
+                },
+                "SortConfiguration": {},
+                "KPIOptions": {
+                  "Comparison": {
+                    "ComparisonMethod": "PERCENT_DIFFERENCE"
+                  },
+                  "PrimaryValueDisplayType": "ACTUAL",
+                  "SecondaryValueFontConfiguration": {
+                    "FontSize": {
+                      "Relative": "EXTRA_LARGE"
+                    }
+                  },
+                  "Sparkline": {
+                    "Visibility": "VISIBLE",
+                    "Type": "AREA"
+                  },
+                  "VisualLayoutOptions": {
+                    "StandardLayout": {
+                      "Type": "VERTICAL"
+                    }
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "LineChartVisual": {
+              "VisualId": "3b813859-46da-4c53-8255-51e8fccf5c04",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Transaction Volume by Month</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "LineChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "DateDimensionField": {
+                          "FieldId": "spending-analysis-physical.transaction_date.0.1770284115735",
+                          "Column": {
+                            "DataSetIdentifier": "spending-analysis",
+                            "ColumnName": "transaction_date"
+                          },
+                          "DateGranularity": "MONTH",
+                          "HierarchyId": "spending-analysis-physical.transaction_date.0.1770284115735"
+                        }
+                      }
+                    ],
+                    "Values": [],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "spending-analysis-physical.transaction_date.0.1770284115735",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Type": "LINE",
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "spending-analysis-physical.transaction_date.0.1770284115735",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": [
+                {
+                  "DateTimeHierarchy": {
+                    "HierarchyId": "spending-analysis-physical.transaction_date.0.1770284115735"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "BarChartVisual": {
+              "VisualId": "72031b50-cceb-483a-b60e-3076419255bd",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Chargebacks by Week</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "DateDimensionField": {
+                          "FieldId": "chargeback-analysis-physical.chargeback_date.0.1770284216583",
+                          "Column": {
+                            "DataSetIdentifier": "chargeback-analysis",
+                            "ColumnName": "chargeback_date"
+                          },
+                          "DateGranularity": "WEEK",
+                          "HierarchyId": "chargeback-analysis-physical.chargeback_date.0.1770284216583"
+                        }
+                      }
+                    ],
+                    "Values": [],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "chargeback-analysis-physical.chargeback_date.0.1770284216583",
+                        "Direction": "ASC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "VERTICAL",
+                "BarsArrangement": "CLUSTERED",
+                "CategoryAxis": {
+                  "ScrollbarOptions": {
+                    "VisibleRange": {
+                      "PercentRange": {
+                        "From": 46.86411149825784,
+                        "To": 89.7212543554007
+                      }
+                    }
+                  }
+                },
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "chargeback-analysis-physical.chargeback_date.0.1770284216583",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": [
+                {
+                  "DateTimeHierarchy": {
+                    "HierarchyId": "chargeback-analysis-physical.chargeback_date.0.1770284216583"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "BarChartVisual": {
+              "VisualId": "c062c983-8fbc-4497-b520-aec6d3cc2ca6",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Top 5 Countries by Spend</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "spending-analysis-physical.customer_country.0.1770285428112",
+                          "Column": {
+                            "DataSetIdentifier": "spending-analysis",
+                            "ColumnName": "customer_country"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "782c56eb-7e19-4ce0-9ebf-444ce62b5df9.1.1770289860320",
+                          "Column": {
+                            "DataSetIdentifier": "spending-analysis",
+                            "ColumnName": "amount_eur"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      }
+                    ],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "782c56eb-7e19-4ce0-9ebf-444ce62b5df9.1.1770289860320",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimit": {
+                    "ItemsLimit": 5,
+                    "OtherCategories": "EXCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "EXCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "EXCLUDE"
+                  }
+                },
+                "Orientation": "HORIZONTAL",
+                "BarsArrangement": "CLUSTERED",
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "spending-analysis-physical.customer_country.0.1770285428112",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "782c56eb-7e19-4ce0-9ebf-444ce62b5df9.1.1770289860320",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "PieChartVisual": {
+              "VisualId": "7958df4d-609b-41be-9841-e360964d0e5a",
+              "Title": {
+                "Visibility": "VISIBLE"
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PieChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "customer-cards-physical.membership_tier.0.1770285501758",
+                          "Column": {
+                            "DataSetIdentifier": "customer-cards",
+                            "ColumnName": "membership_tier"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "DonutOptions": {
+                  "ArcOptions": {
+                    "ArcThickness": "WHOLE"
+                  }
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "customer-cards-physical.membership_tier.0.1770285501758",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "a90bea72-55cb-4945-b6be-84c2f8b8b45c",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 17,
+                    "RowIndex": 0,
+                    "RowSpan": 4
+                  },
+                  {
+                    "ElementId": "72031b50-cceb-483a-b60e-3076419255bd",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 17,
+                    "ColumnSpan": 18,
+                    "RowIndex": 0,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "3b813859-46da-4c53-8255-51e8fccf5c04",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 17,
+                    "RowIndex": 4,
+                    "RowSpan": 11
+                  },
+                  {
+                    "ElementId": "c062c983-8fbc-4497-b520-aec6d3cc2ca6",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 17,
+                    "ColumnSpan": 18,
+                    "RowIndex": 12,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "7958df4d-609b-41be-9841-e360964d0e5a",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 17,
+                    "RowIndex": 15,
+                    "RowSpan": 12
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "ContentType": "INTERACTIVE"
+      },
+      {
+        "SheetId": "chargeback-analysis",
+        "Description": "Chargeback trends with ML anomaly detection - showcases FastShop Online fraud spike",
+        "Name": "Chargeback Analysis",
+        "Visuals": [
+          {
+            "LineChartVisual": {
+              "VisualId": "6151c160-0fbe-4f41-b874-db79d5491fac",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Chargebacks by week</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "LineChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "DateDimensionField": {
+                          "FieldId": "chargeback-analysis-physical.chargeback_date.0.1770281115268",
+                          "Column": {
+                            "DataSetIdentifier": "chargeback-analysis",
+                            "ColumnName": "chargeback_date"
+                          },
+                          "DateGranularity": "WEEK",
+                          "HierarchyId": "chargeback-analysis-physical.chargeback_date.0.1770281115268"
+                        }
+                      }
+                    ],
+                    "Values": [],
+                    "Colors": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "chargeback-analysis-physical.chargeback_type.1.1770286371385",
+                          "Column": {
+                            "DataSetIdentifier": "chargeback-analysis",
+                            "ColumnName": "chargeback_type"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "chargeback-analysis-physical.chargeback_date.0.1770281115268",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Type": "LINE",
+                "XAxisDisplayOptions": {
+                  "TickLabelOptions": {
+                    "LabelOptions": {
+                      "Visibility": "VISIBLE"
+                    }
+                  }
+                },
+                "XAxisLabelOptions": {
+                  "AxisLabelOptions": [
+                    {
+                      "CustomLabel": "Chargebacks by week",
+                      "ApplyTo": {
+                        "FieldId": "chargeback-analysis-physical.chargeback_date.0.1770281115268",
+                        "Column": {
+                          "DataSetIdentifier": "chargeback-analysis",
+                          "ColumnName": "chargeback_date"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "chargeback-analysis-physical.chargeback_date.0.1770281115268",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "chargeback-analysis-physical.chargeback_type.1.1770286371385",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": [
+                {
+                  "DateTimeHierarchy": {
+                    "HierarchyId": "chargeback-analysis-physical.chargeback_date.0.1770281115268"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "BarChartVisual": {
+              "VisualId": "6e29eb4b-a3c0-4287-a16e-58e07c95c329",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Chargeback Amount by Channel</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "chargeback-analysis-physical.merchant_name.1.1770288695268",
+                          "Column": {
+                            "DataSetIdentifier": "chargeback-analysis",
+                            "ColumnName": "merchant_name"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "CategoricalMeasureField": {
+                          "FieldId": "chargeback-analysis-physical.chargeback_id.1.1770288582559",
+                          "Column": {
+                            "DataSetIdentifier": "chargeback-analysis",
+                            "ColumnName": "chargeback_id"
+                          },
+                          "AggregationFunction": "COUNT"
+                        }
+                      }
+                    ],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "chargeback-analysis-physical.chargeback_id.1.1770288582559",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimit": {
+                    "ItemsLimit": 5,
+                    "OtherCategories": "EXCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "EXCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "EXCLUDE"
+                  }
+                },
+                "Orientation": "HORIZONTAL",
+                "BarsArrangement": "CLUSTERED",
+                "CategoryAxis": {
+                  "TickLabelOptions": {
+                    "LabelOptions": {
+                      "Visibility": "VISIBLE"
+                    }
+                  },
+                  "ScrollbarOptions": {
+                    "Visibility": "HIDDEN"
+                  }
+                },
+                "CategoryLabelOptions": {
+                  "SortIconVisibility": "VISIBLE"
+                },
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "chargeback-analysis-physical.chargeback_id.1.1770288582559",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "chargeback-analysis-physical.merchant_name.1.1770288695268",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "PieChartVisual": {
+              "VisualId": "80dfc62b-2175-4bd5-ad34-20a35637358c",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Resolution Status</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PieChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "chargeback-analysis-physical.chargeback_status.0.1770288226413",
+                          "Column": {
+                            "DataSetIdentifier": "chargeback-analysis",
+                            "ColumnName": "chargeback_status"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "DonutOptions": {
+                  "ArcOptions": {
+                    "ArcThickness": "MEDIUM"
+                  }
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "chargeback-analysis-physical.chargeback_status.0.1770288226413",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "PieChartVisual": {
+              "VisualId": "5e71f17d-5d47-4aec-a15c-b2b73144d418",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Chargeback Amount by Channel</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PieChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "chargeback-analysis-physical.merchant_channel.0.1770288662073",
+                          "Column": {
+                            "DataSetIdentifier": "chargeback-analysis",
+                            "ColumnName": "merchant_channel"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "DonutOptions": {
+                  "ArcOptions": {
+                    "ArcThickness": "WHOLE"
+                  }
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "chargeback-analysis-physical.merchant_channel.0.1770288662073",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "6151c160-0fbe-4f41-b874-db79d5491fac",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "6e29eb4b-a3c0-4287-a16e-58e07c95c329",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "80dfc62b-2175-4bd5-ad34-20a35637358c",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "5e71f17d-5d47-4aec-a15c-b2b73144d418",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "ContentType": "INTERACTIVE"
+      },
+      {
+        "SheetId": "tokenization-insights",
+        "Description": "Digital wallet adoption timing by country",
+        "Name": "Tokenization Insights",
+        "Visuals": [
+          {
+            "BarChartVisual": {
+              "VisualId": "e96f28da-a076-45a3-8391-a45a9446cba5",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Avg Days to Tokenize by Country</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "tokenization-analysis-physical.country.0.1770289327740",
+                          "Column": {
+                            "DataSetIdentifier": "tokenization-analysis",
+                            "ColumnName": "country"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "tokenization-analysis-physical.days_to_tokenize.1.1770289336462",
+                          "Column": {
+                            "DataSetIdentifier": "tokenization-analysis",
+                            "ColumnName": "days_to_tokenize"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "AVERAGE"
+                          }
+                        }
+                      }
+                    ],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "tokenization-analysis-physical.days_to_tokenize.1.1770289336462",
+                        "Direction": "ASC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "HORIZONTAL",
+                "BarsArrangement": "CLUSTERED",
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "tokenization-analysis-physical.country.0.1770289327740",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "tokenization-analysis-physical.days_to_tokenize.1.1770289336462",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "BoxPlotVisual": {
+              "VisualId": "69072b5a-2677-4646-aa41-8374703f6b67",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Days to Tokenize Distribution</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BoxPlotAggregatedFieldWells": {
+                    "GroupBy": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "tokenization-analysis-physical.country.0.1770289422078",
+                          "Column": {
+                            "DataSetIdentifier": "tokenization-analysis",
+                            "ColumnName": "country"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "tokenization-analysis-physical.days_to_tokenize.1.1770289424381",
+                          "Column": {
+                            "DataSetIdentifier": "tokenization-analysis",
+                            "ColumnName": "days_to_tokenize"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {},
+                "BoxPlotOptions": {},
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "tokenization-analysis-physical.country.0.1770289422078",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "tokenization-analysis-physical.days_to_tokenize.1.1770289424381",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "ReferenceLines": []
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "PieChartVisual": {
+              "VisualId": "35703ca2-3280-495c-9338-d332b40bc18f",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Tokenization by Wallet Type</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "PieChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "tokenization-analysis-physical.wallet_type.0.1770289498727",
+                          "Column": {
+                            "DataSetIdentifier": "tokenization-analysis",
+                            "ColumnName": "wallet_type"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "DonutOptions": {
+                  "ArcOptions": {
+                    "ArcThickness": "MEDIUM"
+                  }
+                },
+                "DataLabels": {
+                  "Visibility": "VISIBLE",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "tokenization-analysis-physical.wallet_type.0.1770289498727",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "LineChartVisual": {
+              "VisualId": "f1a23fb3-184f-4c78-ad69-176466637736",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Tokenization Trend Over Time</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "LineChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "DateDimensionField": {
+                          "FieldId": "tokenization-analysis-physical.tokenization_date.0.1770289536929",
+                          "Column": {
+                            "DataSetIdentifier": "tokenization-analysis",
+                            "ColumnName": "tokenization_date"
+                          },
+                          "DateGranularity": "MONTH",
+                          "HierarchyId": "tokenization-analysis-physical.tokenization_date.0.1770289536929"
+                        }
+                      }
+                    ],
+                    "Values": [],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "tokenization-analysis-physical.tokenization_date.0.1770289536929",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Type": "LINE",
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "tokenization-analysis-physical.tokenization_date.0.1770289536929",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": [
+                {
+                  "DateTimeHierarchy": {
+                    "HierarchyId": "tokenization-analysis-physical.tokenization_date.0.1770289536929"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "BarChartVisual": {
+              "VisualId": "16a3ffdc-86f6-433c-a90a-b830bed4d98c",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Avg Days to Tokenize by Tier</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "tokenization-analysis-physical.membership_tier.0.1770289599193",
+                          "Column": {
+                            "DataSetIdentifier": "tokenization-analysis",
+                            "ColumnName": "membership_tier"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "tokenization-analysis-physical.days_to_tokenize.1.1770289604161",
+                          "Column": {
+                            "DataSetIdentifier": "tokenization-analysis",
+                            "ColumnName": "days_to_tokenize"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "AVERAGE"
+                          }
+                        }
+                      }
+                    ],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "tokenization-analysis-physical.days_to_tokenize.1.1770289604161",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "HORIZONTAL",
+                "BarsArrangement": "CLUSTERED",
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "tokenization-analysis-physical.membership_tier.0.1770289599193",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "tokenization-analysis-physical.days_to_tokenize.1.1770289604161",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "e96f28da-a076-45a3-8391-a45a9446cba5",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 0,
+                    "ColumnSpan": 18,
+                    "RowIndex": 0,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "69072b5a-2677-4646-aa41-8374703f6b67",
+                    "ElementType": "VISUAL",
+                    "ColumnIndex": 18,
+                    "ColumnSpan": 18,
+                    "RowIndex": 0,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "35703ca2-3280-495c-9338-d332b40bc18f",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "f1a23fb3-184f-4c78-ad69-176466637736",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "16a3ffdc-86f6-433c-a90a-b830bed4d98c",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "ContentType": "INTERACTIVE"
+      },
+      {
+        "SheetId": "customer-segmentation",
+        "Description": "Metal vs Standard tier spending patterns and card ownership",
+        "Name": "Customer Segmentation",
+        "Visuals": [
+          {
+            "BarChartVisual": {
+              "VisualId": "0de252ed-a72b-4c2b-afd4-3ef7fc566ddf",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Avg Spend by Membership Tier</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "spending-analysis-physical.membership_tier.0.1770289955601",
+                          "Column": {
+                            "DataSetIdentifier": "spending-analysis",
+                            "ColumnName": "membership_tier"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "782c56eb-7e19-4ce0-9ebf-444ce62b5df9.1.1770289965828",
+                          "Column": {
+                            "DataSetIdentifier": "spending-analysis",
+                            "ColumnName": "amount_eur"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "AVERAGE"
+                          }
+                        }
+                      }
+                    ],
+                    "Colors": []
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "782c56eb-7e19-4ce0-9ebf-444ce62b5df9.1.1770289965828",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "HORIZONTAL",
+                "BarsArrangement": "CLUSTERED",
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "spending-analysis-physical.membership_tier.0.1770289955601",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "782c56eb-7e19-4ce0-9ebf-444ce62b5df9.1.1770289965828",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "HeatMapVisual": {
+              "VisualId": "97a0f70e-bcb6-4ab7-9f50-ccaea7e87e41",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Top Categories by Tier</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "HeatMapAggregatedFieldWells": {
+                    "Rows": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "spending-analysis-physical.membership_tier.0.1770290048727",
+                          "Column": {
+                            "DataSetIdentifier": "spending-analysis",
+                            "ColumnName": "membership_tier"
+                          }
+                        }
+                      }
+                    ],
+                    "Columns": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "spending-analysis-physical.merchant_category.1.1770290056984",
+                          "Column": {
+                            "DataSetIdentifier": "spending-analysis",
+                            "ColumnName": "merchant_category"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "782c56eb-7e19-4ce0-9ebf-444ce62b5df9.2.1770290066179",
+                          "Column": {
+                            "DataSetIdentifier": "spending-analysis",
+                            "ColumnName": "amount_eur"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "SUM"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "HeatMapColumnSort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "spending-analysis-physical.merchant_category.1.1770290056984",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ],
+                  "HeatMapRowItemsLimitConfiguration": {
+                    "OtherCategories": "EXCLUDE"
+                  },
+                  "HeatMapColumnItemsLimitConfiguration": {
+                    "OtherCategories": "EXCLUDE"
+                  }
+                },
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "spending-analysis-physical.membership_tier.0.1770290048727",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "spending-analysis-physical.merchant_category.1.1770290056984",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "782c56eb-7e19-4ce0-9ebf-444ce62b5df9.2.1770290066179",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "ColumnHierarchies": [],
+              "Actions": []
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "0de252ed-a72b-4c2b-afd4-3ef7fc566ddf",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "97a0f70e-bcb6-4ab7-9f50-ccaea7e87e41",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "ContentType": "INTERACTIVE"
+      },
+      {
+        "SheetId": "delivery-performance",
+        "Description": "Card delivery times by country and delivery type",
+        "Name": "Delivery Performance",
+        "Visuals": [
+          {
+            "BarChartVisual": {
+              "VisualId": "fe355761-7dd3-488c-9801-669c59dc719a",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Avg Delivery Days by Country</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "card-delivery-physical.country.0.1770290741434",
+                          "Column": {
+                            "DataSetIdentifier": "card-delivery",
+                            "ColumnName": "country"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "card-delivery-physical.delivery_days.1.1770290746590",
+                          "Column": {
+                            "DataSetIdentifier": "card-delivery",
+                            "ColumnName": "delivery_days"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "AVERAGE"
+                          }
+                        }
+                      }
+                    ],
+                    "Colors": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "card-delivery-physical.delivery_type.2.1770290768608",
+                          "Column": {
+                            "DataSetIdentifier": "card-delivery",
+                            "ColumnName": "delivery_type"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "card-delivery-physical.delivery_days.1.1770290746590",
+                        "Direction": "ASC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "HORIZONTAL",
+                "BarsArrangement": "CLUSTERED",
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "card-delivery-physical.country.0.1770290741434",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "card-delivery-physical.delivery_days.1.1770290746590",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "card-delivery-physical.delivery_type.2.1770290768608",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "BoxPlotVisual": {
+              "VisualId": "ec4bdd08-9130-4a84-9d46-64b71015dbfa",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Delivery Time Distribution</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BoxPlotAggregatedFieldWells": {
+                    "GroupBy": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "card-delivery-physical.country.0.1770290877415",
+                          "Column": {
+                            "DataSetIdentifier": "card-delivery",
+                            "ColumnName": "country"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "card-delivery-physical.delivery_days.1.1770290879431",
+                          "Column": {
+                            "DataSetIdentifier": "card-delivery",
+                            "ColumnName": "delivery_days"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {},
+                "BoxPlotOptions": {},
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "card-delivery-physical.country.0.1770290877415",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "card-delivery-physical.delivery_days.1.1770290879431",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "ReferenceLines": []
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "BarChartVisual": {
+              "VisualId": "40b7acc1-29cf-4aaf-b068-179c9ffa26c9",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Express vs Standard Adoption</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "BarChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "card-delivery-physical.country.0.1770290926588",
+                          "Column": {
+                            "DataSetIdentifier": "card-delivery",
+                            "ColumnName": "country"
+                          }
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "CategoricalMeasureField": {
+                          "FieldId": "card-delivery-physical.delivery_type.1.1770290935976",
+                          "Column": {
+                            "DataSetIdentifier": "card-delivery",
+                            "ColumnName": "delivery_type"
+                          },
+                          "AggregationFunction": "COUNT"
+                        }
+                      }
+                    ],
+                    "Colors": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "card-delivery-physical.delivery_type.2.1770290974264",
+                          "Column": {
+                            "DataSetIdentifier": "card-delivery",
+                            "ColumnName": "delivery_type"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "card-delivery-physical.country.0.1770290926588",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimit": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Orientation": "VERTICAL",
+                "BarsArrangement": "STACKED",
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "card-delivery-physical.country.0.1770290926588",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "card-delivery-physical.delivery_type.1.1770290935976",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "card-delivery-physical.delivery_type.2.1770290974264",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": []
+            }
+          },
+          {
+            "LineChartVisual": {
+              "VisualId": "f618fa82-76c3-4d65-9518-dca4ed429728",
+              "Title": {
+                "Visibility": "VISIBLE",
+                "FormatText": {
+                  "RichText": "<visual-title>Delivery Time Trend</visual-title>"
+                }
+              },
+              "Subtitle": {
+                "Visibility": "VISIBLE"
+              },
+              "ChartConfiguration": {
+                "FieldWells": {
+                  "LineChartAggregatedFieldWells": {
+                    "Category": [
+                      {
+                        "DateDimensionField": {
+                          "FieldId": "card-delivery-physical.issue_date.0.1770291007985",
+                          "Column": {
+                            "DataSetIdentifier": "card-delivery",
+                            "ColumnName": "issue_date"
+                          },
+                          "DateGranularity": "MONTH",
+                          "HierarchyId": "card-delivery-physical.issue_date.0.1770291007985"
+                        }
+                      }
+                    ],
+                    "Values": [
+                      {
+                        "NumericalMeasureField": {
+                          "FieldId": "card-delivery-physical.delivery_days.1.1770291017526",
+                          "Column": {
+                            "DataSetIdentifier": "card-delivery",
+                            "ColumnName": "delivery_days"
+                          },
+                          "AggregationFunction": {
+                            "SimpleNumericalAggregation": "AVERAGE"
+                          }
+                        }
+                      }
+                    ],
+                    "Colors": [
+                      {
+                        "CategoricalDimensionField": {
+                          "FieldId": "card-delivery-physical.country.2.1770295960707",
+                          "Column": {
+                            "DataSetIdentifier": "card-delivery",
+                            "ColumnName": "country"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "SortConfiguration": {
+                  "CategorySort": [
+                    {
+                      "FieldSort": {
+                        "FieldId": "card-delivery-physical.issue_date.0.1770291007985",
+                        "Direction": "DESC"
+                      }
+                    }
+                  ],
+                  "CategoryItemsLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "ColorItemsLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  },
+                  "SmallMultiplesLimitConfiguration": {
+                    "OtherCategories": "INCLUDE"
+                  }
+                },
+                "Type": "LINE",
+                "DataLabels": {
+                  "Visibility": "HIDDEN",
+                  "Overlap": "DISABLE_OVERLAP"
+                },
+                "Tooltip": {
+                  "TooltipVisibility": "VISIBLE",
+                  "SelectedTooltipType": "DETAILED",
+                  "FieldBasedTooltip": {
+                    "AggregationVisibility": "HIDDEN",
+                    "TooltipTitleType": "PRIMARY_VALUE",
+                    "TooltipFields": [
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "card-delivery-physical.issue_date.0.1770291007985",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "card-delivery-physical.delivery_days.1.1770291017526",
+                          "Visibility": "VISIBLE"
+                        }
+                      },
+                      {
+                        "FieldTooltipItem": {
+                          "FieldId": "card-delivery-physical.country.2.1770295960707",
+                          "Visibility": "VISIBLE"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Actions": [],
+              "ColumnHierarchies": [
+                {
+                  "DateTimeHierarchy": {
+                    "HierarchyId": "card-delivery-physical.issue_date.0.1770291007985"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "Layouts": [
+          {
+            "Configuration": {
+              "GridLayout": {
+                "Elements": [
+                  {
+                    "ElementId": "fe355761-7dd3-488c-9801-669c59dc719a",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "ec4bdd08-9130-4a84-9d46-64b71015dbfa",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "40b7acc1-29cf-4aaf-b068-179c9ffa26c9",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  },
+                  {
+                    "ElementId": "f618fa82-76c3-4d65-9518-dca4ed429728",
+                    "ElementType": "VISUAL",
+                    "ColumnSpan": 18,
+                    "RowSpan": 12
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "ContentType": "INTERACTIVE"
+      }
+    ],
+    "CalculatedFields": [
+      {
+        "DataSetIdentifier": "spending-analysis",
+        "Name": "amount_eur",
+        "Expression": "{amount_cents}/100"
+      }
+    ],
+    "ParameterDeclarations": [],
+    "FilterGroups": [
+      {
+        "FilterGroupId": "4fdcc989-8499-4952-be03-a80fb3b163fe",
+        "Filters": [
+          {
+            "TimeRangeFilter": {
+              "FilterId": "55a40a8f-7a09-44be-930d-3411a20cd8bb",
+              "Column": {
+                "DataSetIdentifier": "chargeback-analysis",
+                "ColumnName": "chargeback_date"
+              },
+              "IncludeMinimum": true,
+              "IncludeMaximum": false,
+              "RangeMinimumValue": {
+                "StaticValue": "2025-12-01T01:00:00+01:00"
+              },
+              "RangeMaximumValue": {
+                "StaticValue": "2026-02-05T01:00:00+01:00"
+              },
+              "NullOption": "NON_NULLS_ONLY",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "chargeback-analysis",
+                "Scope": "SELECTED_VISUALS",
+                "VisualIds": [
+                  "80dfc62b-2175-4bd5-ad34-20a35637358c"
+                ]
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      },
+      {
+        "FilterGroupId": "5855d1ac-6036-4717-a325-5404f3b18499",
+        "Filters": [
+          {
+            "TimeRangeFilter": {
+              "FilterId": "60bb8be0-73b4-436f-ae63-738fc6812296",
+              "Column": {
+                "DataSetIdentifier": "chargeback-analysis",
+                "ColumnName": "chargeback_date"
+              },
+              "IncludeMinimum": true,
+              "IncludeMaximum": false,
+              "RangeMinimumValue": {
+                "StaticValue": "2025-12-01T01:00:00+01:00"
+              },
+              "RangeMaximumValue": {
+                "StaticValue": "2026-02-05T01:00:00+01:00"
+              },
+              "NullOption": "NON_NULLS_ONLY",
+              "TimeGranularity": "DAY"
+            }
+          }
+        ],
+        "ScopeConfiguration": {
+          "SelectedSheets": {
+            "SheetVisualScopingConfigurations": [
+              {
+                "SheetId": "chargeback-analysis",
+                "Scope": "ALL_VISUALS"
+              }
+            ]
+          }
+        },
+        "Status": "ENABLED",
+        "CrossDataset": "SINGLE_DATASET"
+      }
+    ],
+    "AnalysisDefaults": {
+      "DefaultNewSheetConfiguration": {
+        "InteractiveLayoutConfiguration": {
+          "Grid": {
+            "CanvasSizeOptions": {
+              "ScreenCanvasSizeOptions": {
+                "ResizeOption": "FIXED",
+                "OptimizedViewPortWidth": "1600px"
+              }
+            }
+          }
+        },
+        "SheetContentType": "INTERACTIVE"
+      }
+    }
+  },
+  "ThemeArn": null,
+  "ExportedAt": "2026-02-05T20:53:45.458946",
+  "ExportedFrom": {
+    "Region": "eu-west-1"
+  }
+}

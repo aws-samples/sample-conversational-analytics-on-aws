@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!-- Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. -->
+<!-- SPDX-License-Identifier: MIT-0 -->
+<!--
+  Source for docs/images/architecture.png. Render with:
+  uv run --with playwright python docs/images/render_architecture.py
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 840px; background: #0f1419; color: #e6edf3;
+         font-family: "Helvetica Neue", Arial, sans-serif; position: relative; overflow: hidden; }
+  .abs { position: absolute; }
+  h1 { left: 86px; top: 44px; font-size: 38px; font-weight: 700; color: #f0f6fc; }
+  .subtitle { left: 86px; top: 98px; font-size: 22px; color: #9aa4ae; }
+  .group { border: 2px dashed; border-radius: 16px; }
+  .group-label { font-size: 18px; font-weight: 700; letter-spacing: 0.3px; }
+  .lake { left: 86px; top: 307px; width: 912px; height: 280px; border-color: #a259f7; }
+  .lake-label { left: 110px; top: 323px; color: #b57bff; }
+  .sem { left: 1010px; top: 307px; width: 906px; height: 280px; border-color: #38b6ff; }
+  .sem-label { left: 1035px; top: 323px; color: #38b6ff; }
+  .box { width: 250px; height: 175px; top: 375px; border: 2.5px solid; border-radius: 14px;
+         background: #1b2129; text-align: center; padding-top: 26px; }
+  .box .t { font-size: 27px; font-weight: 700; color: #f0f6fc; }
+  .box .d { font-size: 18px; color: #b8c1ca; margin-top: 18px; line-height: 27px; }
+  .p { border-color: #a259f7; }
+  .b { border-color: #38b6ff; }
+  .badge { top: 358px; width: 104px; height: 32px; margin-left: 73px; border-radius: 16px;
+           background: #38b6ff; color: #0f1419; font-size: 15px; font-weight: 700;
+           text-align: center; line-height: 32px; }
+  .pm { left: 1616px; top: 150px; width: 300px; height: 105px; border: 2.5px solid #19d81f;
+        border-radius: 14px; background: #1b2129; text-align: center; padding-top: 20px; }
+  .pm .t { font-size: 25px; font-weight: 700; }
+  .pm .d { font-size: 18px; color: #b8c1ca; margin-top: 10px; }
+  .note { font-size: 17px; color: #b8c1ca; }
+  .fallback { left: 1087px; top: 612px; font-size: 18px; color: #38b6ff; }
+  .pill { top: 725px; width: 588px; height: 58px; border: 1.5px solid #2d3640; border-radius: 29px;
+          background: #1b2129; text-align: center; line-height: 56px; font-size: 19px; color: #e6edf3; }
+  svg { position: absolute; left: 0; top: 0; }
+</style>
+</head>
+<body>
+  <h1 class="abs">Conversational Analytics on AWS</h1>
+  <div class="abs subtitle">A semantic layer on top of an existing lakehouse</div>
+
+  <div class="abs group lake"></div>
+  <div class="abs group-label lake-label">EXISTING LAKEHOUSE</div>
+  <div class="abs group sem"></div>
+  <div class="abs group-label sem-label">SEMANTIC LAYER · AMAZON QUICK</div>
+
+  <div class="abs box p" style="left:110px"><div class="t">Amazon S3</div><div class="d">Parquet, Hive partitions<br>6 synthetic tables</div></div>
+  <div class="abs box p" style="left:416px"><div class="t">AWS Glue</div><div class="d">Data Catalog<br>Schema &amp; metadata</div></div>
+  <div class="abs box p" style="left:722px"><div class="t">Amazon Athena</div><div class="d">Serverless SQL<br>query engine</div></div>
+
+  <div class="abs box b" style="left:1028px"><div class="t">DataSets</div><div class="d">5 pre-joined views<br>+ 6 raw tables</div></div>
+  <div class="abs box b" style="left:1334px"><div class="t">Q Topics</div><div class="d">Synonyms, routing,<br>aggregation rules</div></div>
+  <div class="abs box b" style="left:1640px"><div class="t">Chat Agent</div><div class="d">Persona, glossary,<br>fallback SQL</div></div>
+  <div class="abs badge" style="left:1028px">LAYER 1</div>
+  <div class="abs badge" style="left:1334px">LAYER 2</div>
+  <div class="abs badge" style="left:1640px">LAYER 3</div>
+
+  <div class="abs pm"><div class="t">Product Manager</div><div class="d">asks in plain English</div></div>
+  <div class="abs note" style="left:1450px; top:274px">"Why did chargebacks increase?"</div>
+  <div class="abs note" style="left:1822px; top:274px">root cause</div>
+  <div class="abs fallback">Fallback SQL via Athena when the topic can't answer</div>
+
+  <svg width="2000" height="950">
+    <defs>
+      <marker id="g" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b8c1ca"/></marker>
+      <marker id="gr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#19d81f"/></marker>
+      <marker id="bl" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#38b6ff"/></marker>
+    </defs>
+    <g stroke="#b8c1ca" stroke-width="3" marker-end="url(#g)">
+      <line x1="362" y1="462" x2="402" y2="462"/>
+      <line x1="668" y1="462" x2="708" y2="462"/>
+      <line x1="974" y1="462" x2="1014" y2="462"/>
+      <line x1="1280" y1="462" x2="1320" y2="462"/>
+      <line x1="1586" y1="462" x2="1626" y2="462"/>
+    </g>
+    <g stroke="#19d81f" stroke-width="3">
+      <line x1="1728" y1="258" x2="1728" y2="335" marker-end="url(#gr)"/>
+      <line x1="1803" y1="348" x2="1803" y2="272" marker-end="url(#gr)"/>
+    </g>
+    <path d="M1765,552 C1760,600 1650,605 1545,610" stroke="#38b6ff" stroke-width="2" stroke-dasharray="8 6" fill="none"/>
+    <path d="M1065,612 C980,605 880,600 852,575" stroke="#38b6ff" stroke-width="2" stroke-dasharray="8 6" fill="none"/>
+    <polygon points="847,553 836,576 858,576" fill="#38b6ff"/>
+  </svg>
+
+  <div class="abs pill" style="left:131px">Deployed with 6 AWS CDK stacks</div>
+  <div class="abs pill" style="left:756px">Data stays in your AWS account · RLS/CLS inherited</div>
+  <div class="abs pill" style="left:1381px; width:488px">All queries logged in AWS CloudTrail</div>
+</body>
+</html>
